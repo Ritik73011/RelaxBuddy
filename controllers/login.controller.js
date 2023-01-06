@@ -49,6 +49,7 @@ route.post('/login', async (req, res) => {
     }
 })
 
+// Getting User Info For profile
 route.get('/get-user-info',VerifyUser,async(req,res)=>{
     return res.status(200).send({
         user_id:req.user_id,
@@ -58,6 +59,7 @@ route.get('/get-user-info',VerifyUser,async(req,res)=>{
     });
 })
 
+// Updating user info
 route.patch('/update-user',getUserId,async(req,res)=>{
     const userId = req.user_id;
     const name = validateName(req.body.name);
@@ -73,6 +75,24 @@ route.patch('/update-user',getUserId,async(req,res)=>{
         const token = jwt.sign({user_id:checkUser._id,name:checkUser.name,email:checkUser.email,premium:checkUser.premium}, process.env.PRIVATE_KEY);
         return res.status(200).send({
             message:"updated successfully...",
+            token:token
+        })
+    } catch (error) {
+        return res.status(500).send({
+            message:"internal server error"
+        })
+    }
+})
+
+//updating user premium account
+route.patch('/update-premium',getUserId,async(req,res)=>{
+    const userId = req.user_id;
+    try {
+        await userModel.findByIdAndUpdate(userId,{premium:true});
+        const checkUser = await userModel.findById(userId);
+        const token = jwt.sign({user_id:checkUser._id,name:checkUser.name,email:checkUser.email,premium:checkUser.premium}, process.env.PRIVATE_KEY);
+        return res.status(200).send({
+            message:"premium added successfully...",
             token:token
         })
     } catch (error) {
