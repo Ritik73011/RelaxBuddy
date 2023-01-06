@@ -4,6 +4,8 @@ const userModel = require('../models/register.model');
 const { validateEmail, validatePassword } = require('../validation/auth');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const userMiddleWare = require('../validation/user.middleware');
+
 
 route.post('/login', async (req, res) => {
     const email = validateEmail(req.body.email);
@@ -45,5 +47,14 @@ route.post('/login', async (req, res) => {
             message: "internal server error"
         });
     }
+})
+
+route.get('/get-user-info',userMiddleWare,async(req,res)=>{
+    return res.status(200).send({
+        user_id:req.user_id,
+        name:req.name,
+        email:req.email,
+        premium:req.premium,
+    });
 })
 module.exports = route;
