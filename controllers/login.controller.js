@@ -34,7 +34,7 @@ route.post('/login', async (req, res) => {
                 message: "password is incorrect..."
             })
 
-        const token = jwt.sign({user_id:checkUser._id,name:checkUser.name,email:checkUser.email}, process.env.PRIVATE_KEY);
+        const token = jwt.sign({user_id:checkUser._id,name:checkUser.name,email:checkUser.email,premium:checkUser.premium}, process.env.PRIVATE_KEY);
         return res.status(200).send({
             message: "login successfully...",
             token: token
