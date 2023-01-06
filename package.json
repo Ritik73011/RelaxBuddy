@@ -1,0 +1,20 @@
+{
+  "name": "relaxbuddy",
+  "version": "1.0.0",
+  "description": "RelaxBuddy is a music streaming web app, where you can listen your favorite songs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ritik73011/RelaxBuddy.git"
+  },
+  "keywords": [],
+  "author": "Ritik Kumar Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ritik73011/RelaxBuddy/issues"
+  },
+  "homepage": "https://github.com/Ritik73011/RelaxBuddy#readme"
+}
