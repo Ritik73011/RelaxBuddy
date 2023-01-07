@@ -7,6 +7,7 @@ const categoryRoute = require('./controllers/category.controllers');
 const songsRoute = require('./controllers/songs.controllers');
 const premiumRoute = require('./controllers/premium.controllers');
 const trendsRoute = require('./controllers/trend.controllers');
+const favRoute = require('./controllers/favorite.controllers');
 const app = express();
 
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use(categoryRoute);
 app.use(songsRoute);
 app.use(premiumRoute);
 app.use(trendsRoute);
+app.use(favRoute);
 
 dbConnection().then(()=>{
     app.listen(3000,()=>{
