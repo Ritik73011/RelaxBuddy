@@ -1,12 +1,19 @@
 const express = require('express');
 const route = express.Router();
 const songsModel = require('../models/songs.model');
+const {VerifyUser} = require('../validation/user.middleware');
 
-route.get('/premium-songs',async(req,res)=>{
+route.get('/premium-songs',VerifyUser, async(req,res)=>{
+    const premium = req.premium;
     try {
-        const category = await songsModel.find().distinct("category");
+        const songs = await songsModel.find({premium:true});
+        if(premium)
         return res.status(200).send({
-            category:category
+            songs:songs
+        })
+
+        return res.status(400).send({
+            message:"you are not our premium member..."
         })
     } catch (error) {
         return res.status(500).send({
