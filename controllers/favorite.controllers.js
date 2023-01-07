@@ -6,12 +6,13 @@ const {getUserId} = require('../validation/user.middleware');
 //Adding songs to user favorite section
 route.post('/favorite',getUserId,async(req,res)=>{
     const uid = req.user_id;
-    const {url,poster,singer,category} = req.body;
+    const {url,poster,title,singer,category} = req.body;
     try {
         const obj = {
             userId:uid,
             url:url,
             poster:poster,
+            title:title,
             singer:singer,
             category:category
         }
