@@ -4,6 +4,7 @@ const FavSchema = mg.Schema({
     userId:mg.Types.ObjectId,
     url:String,
     poster:String,
+    title:String,
     singer:String,
     category:String
 })

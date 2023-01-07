@@ -4,6 +4,7 @@ const trendSchema = mg.Schema({
     url:String,
     poster:String,
     singer:String,
+    title:String,
     category:String,
     premium:Boolean
 })
