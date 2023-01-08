@@ -9,6 +9,7 @@ const premiumRoute = require('./controllers/premium.controllers');
 const trendsRoute = require('./controllers/trend.controllers');
 const favRoute = require('./controllers/favorite.controllers');
 const searchRoute = require('./controllers/search.controller');
+const forgetPassRoute = require('./controllers/forget-pass.controller');
 const app = express();
 
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(premiumRoute);
 app.use(trendsRoute);
 app.use(favRoute);
 app.use(searchRoute);
+app.use(forgetPassRoute);
 
 dbConnection().then(()=>{
     app.listen(3000,()=>{
