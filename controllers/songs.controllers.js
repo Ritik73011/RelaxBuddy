@@ -16,6 +16,19 @@ route.get('/songs/:cat',async(req,res)=>{
     }
 });
 
+//get songs by id to play
+route.get('/song/:id',async(req,res)=>{
+    try {
+        const songs = await songsModel.findOne({_id:req.params.id});
+        return res.status(200).send({
+            songs:songs
+        })
+    } catch (error) {
+        return res.status(500).send({
+            message:"internal server error"
+        })
+    }
+});
 //for admin
 route.post(process.env.ADMIN_ROUTE,async(req,res)=>{
     const {url,poster,singer,title,category,premium} = req.body;

@@ -56,4 +56,18 @@ route.delete('/favorite/:id',async(req,res)=>{
         })
     }
 })
+//to get song by id to play
+route.get('/favorite/:id',async(req,res)=>{
+    const id = req.params.id;
+    try {
+        const song = await favSongs.findOne({_id:id});
+        return res.status(200).send({
+            songs:song
+        })
+    } catch (error) {
+        return res.status(500).send({
+            message:"internal server error"
+        })
+    }
+})
 module.exports = route;
