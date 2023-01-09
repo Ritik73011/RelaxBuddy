@@ -22,6 +22,8 @@ import { getCategory, api_url } from "../../private";
 import Navbar from "../TopNavBar/Navbar";
 import Category from "../Category/Category";
 import '../Category/single.css'
+import Songs from "../Song/Songs";
+import { useNavigate } from "react-router";
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -39,6 +41,11 @@ function ResponsiveDrawer(props) {
     temArr.push(data.category[3]);
     setCategory(temArr);
   };
+
+    const navigate = useNavigate();
+    const handleClick = (ele)=>{
+        navigate(`/songs/${ele}`)
+    }
 
   useEffect(() => {
     fetchCategory();
@@ -82,7 +89,7 @@ function ResponsiveDrawer(props) {
           category.map((ele, idx) => {
             return (
               <ListItem key={idx + 1} disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={()=>handleClick(ele)}>
                   <ListItemIcon>
                     <LibraryMusicIcon />
                   </ListItemIcon>
@@ -183,17 +190,24 @@ function ResponsiveDrawer(props) {
       <Box
         component="main"
         className="catSl"
+        position={'relative'}
         sx={{
           p: 3,
           overflow:"scroll",
           overflowY:"hidden",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          minHeight:'100vh'
         }}
       >
         <Toolbar />
        <Box>
         <Category/>
+        <Songs/>
        </Box>
+
+        <Box  position="absolute" bottom="0px" marginBottom={'10px'}>
+          position at bottom
+        </Box>
       </Box>
     </Box>
   );
