@@ -1,9 +1,10 @@
 import './App.css';
+import ResponsiveDrawer from './components/Sidebar/Sidebar';
 
 function App() {
   return (
     <div className="App">
-      hii
+      <ResponsiveDrawer/>
     </div>
   );
 }
