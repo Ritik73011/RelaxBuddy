@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router';
 import {api_url,getTrendingSongs,searchedSongs} from '../../private';
 import SingleSong from '../SingleSong/SingleSong';
-
+import '../Category/single.css'
 const Songs = ()=>{
     const {id} = useParams();
     const [song,setSong] = useState([]);
@@ -27,7 +27,7 @@ const Songs = ()=>{
 
         {
             song.length>0?
-            <Box sx={{}}>
+            <Box className='catSl' sx={{overflow:"scroll",overflowX:"hidden",zIndex:"-10",height:"350px"}}>
                 {
                     song.map((ele)=>{
                         return <SingleSong key={ele._id} ele={ele}/>

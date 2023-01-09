@@ -205,8 +205,8 @@ function ResponsiveDrawer(props) {
         <Songs/>
        </Box>
 
-        <Box  position="absolute" bottom="0px" marginBottom={'10px'}>
-          position at bottom
+        <Box  position="absolute" bottom="0px" sx={{zIndex:'10',backgroundColor:"grey",width:"100%"}}>
+          <p>Playing Songs</p>
         </Box>
       </Box>
     </Box>
