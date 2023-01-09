@@ -19,6 +19,7 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import { getCategory, api_url } from "../../private";
+import Navbar from "../TopNavBar/Navbar";
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -115,17 +116,18 @@ function ResponsiveDrawer(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex",background:"#f8f8f8" }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="inherit"
         elevation={0}
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar style={{background:"#f8f8f8"}}>
+        <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -135,9 +137,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon style={{color:"grey"}} />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {/*RelaxBuddy*/}
-          </Typography>
+          <Navbar/>
         </Toolbar>
       </AppBar>
       <Box
@@ -182,7 +182,7 @@ function ResponsiveDrawer(props) {
         component="main"
         sx={{
           p: 3,
-          background:"#f8f8f8",
+    
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
