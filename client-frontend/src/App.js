@@ -2,6 +2,7 @@ import './App.css';
 import ResponsiveDrawer from './components/Sidebar/Sidebar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { createContext, useMemo, useState } from 'react';
+import { Route, Routes } from 'react-router';
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 function App() {
@@ -30,8 +31,12 @@ function App() {
     <div className="App">
        <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <ResponsiveDrawer/>
+      <Routes>
+        <Route path='/' element={<ResponsiveDrawer/>}/>
+        <Route path='/songs/:id' element={<ResponsiveDrawer/>}/>
+      </Routes>
       </ThemeProvider>
+
     </ColorModeContext.Provider>
     </div>
   );
