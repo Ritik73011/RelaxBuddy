@@ -56,7 +56,7 @@ const Search = () => {
         return option.title;
       }}
       renderOption={(props, option) => <li {...props}>{option.title}</li>}
-      sx={{ width: "100%",maxWidth:500}}
+      sx={{ width: "100%",maxWidth:600}}
       freeSolo
       renderInput={(params) => (
         <TextField {...params} placeholder='search songs...'/>
