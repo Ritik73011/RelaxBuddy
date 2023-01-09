@@ -37,7 +37,7 @@ router.get('/forget-password', async (req, res) => {
             to: email,
             subject: "Reset Password OTP",
             text: `Hii, ${user.name} Your OTP is :- `,
-            html: `<b>${genRandomOtp}</b>`,
+            html: `Hii <i>${user.name}</i> Your OTP is :- <b>${genRandomOtp}</b>`,
         });
 
         return res.status(200).send({
