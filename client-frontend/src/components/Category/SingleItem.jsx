@@ -8,8 +8,7 @@ const SingleItem = ({ele,idx})=>{
         url = `linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,121,91,1) 37%, rgba(0,212,255,1) 100%)`;
     }
     return <Box sx={{width:120,height:120,minWidth:100,minHeight:100,display:"flex",alignItems:"center",justifyContent:"center",
-    background:url,
-    backgroundSize:"cover"
+    background:url
     ,cursor:"pointer",
     borderRadius:"8px"}}>
         <Typography>{ele}</Typography>

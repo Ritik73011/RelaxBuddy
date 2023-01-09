@@ -21,6 +21,7 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import { getCategory, api_url } from "../../private";
 import Navbar from "../TopNavBar/Navbar";
 import Category from "../Category/Category";
+import '../Category/single.css'
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -181,9 +182,11 @@ function ResponsiveDrawer(props) {
       </Box>
       <Box
         component="main"
+        className="catSl"
         sx={{
           p: 3,
-    
+          overflow:"scroll",
+          overflowY:"hidden",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
