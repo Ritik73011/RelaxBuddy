@@ -17,7 +17,7 @@ const Category = ()=>{
         fetchCategory();
       },[])
     return <Box>
-         <Typography sx={{textAlign:"start",fontSize:"20px",marginBottom:"10px"}}>All Categories</Typography>
+         <Typography variant="h6" sx={{textAlign:"start",marginBottom:"10px"}}>All Categories</Typography>
         {category.length>0?<Box className="catSl" style={{display:"flex",gap:"16px",width:"100%",overflow:"scroll",overflowY:"hidden"}}>
             {
                 category.map((ele,indx)=>{
