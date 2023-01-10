@@ -61,6 +61,7 @@ function ChildModal() {
           setOpen2(true);
           setTimeout(() => {
             setOpen(false);
+            setOpen2(false);
           }, 2000);
         }
         setError(msg.message);
@@ -225,7 +226,7 @@ export default function NestedModal({ open, handleClose }) {
               severity="success"
               sx={{ width: "100%" }}
             >
-              Signup Successfully...
+              Login Successfully...
             </Alert>
           </Snackbar>
         </Box>

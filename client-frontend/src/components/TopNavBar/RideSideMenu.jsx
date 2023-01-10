@@ -6,8 +6,10 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from "../../App";
 import { useState } from "react";
 import NestedModal from "../Login/Login";
+import Profile from "../Profile/Profile";
 const RighSideMenu = ()=>{
   const [open, setOpen] = useState(false);
+  const log = localStorage.getItem('relax-token');
   const handleOpen = () => {
     setOpen(true);
   };
@@ -24,7 +26,7 @@ const RighSideMenu = ()=>{
         <IconButton onClick={handleOpen} type="button" sx={{ p: '10px' }} color='inherit'>
         <AccountCircleIcon/>
       </IconButton>
-        <NestedModal open={open} handleClose={handleClose}/>
+        {log?<Profile open={open} handleClose={handleClose}/>:<NestedModal open={open} handleClose={handleClose}/>}
     </Box>
 }
 export default RighSideMenu;
