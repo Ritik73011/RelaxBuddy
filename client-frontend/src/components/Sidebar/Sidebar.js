@@ -28,6 +28,7 @@ import SongContext from "../../Context/SongContext";
 import Player from "../Player/Player";
 import MuiAlert from "@mui/material/Alert";
 import { Snackbar } from "@mui/material";
+import BasicModal from "../Favorite/Favorite";
 const drawerWidth = 240;
 
 const Alert = forwardRef(function Alert(props, ref) {
@@ -51,11 +52,13 @@ function ResponsiveDrawer(props) {
   };
 
     const navigate = useNavigate();
+    //Category Click Handling
     const handleClick = (ele)=>{
         navigate(`/songs/${ele}`)
         setMobileOpen(false);
     }
 
+    //SnackBar States
     const [open, setOpen] = useState(false);
     const [text, setText] = useState("");
     const handleClose = (event, reason) => {
@@ -67,7 +70,13 @@ function ResponsiveDrawer(props) {
     };
   
 
+    //For Favorite Model
+    const [favOpen, setFavOpen] = useState(false);
+    const handleOpenFav = () => setFavOpen(true);
+    const handleCloseFav = () => setFavOpen(false);
+  
 
+    //Premium Click Handle
     const handlePremium = ()=>{
       const log = localStorage.getItem('relax-token');
       if(log){
@@ -82,6 +91,7 @@ function ResponsiveDrawer(props) {
         },2000)
       }
     }
+    //For Updating SnackBar Text
     const updateText = (text,val)=>{
       setText(text);
       setOpen(val);
@@ -90,6 +100,7 @@ function ResponsiveDrawer(props) {
     fetchCategory();
   }, []);
 
+  //Drawer
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -148,11 +159,21 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={()=>{
+            const log = localStorage.getItem('relax-token');
+            if(log){
+              handleOpenFav();
+            }
+            else{
+              setText("You have to login first");
+              setOpen(true);
+            }
+          }}>
             <ListItemIcon><FavoriteIcon/></ListItemIcon>
             <ListItemText primary={"Favorites"} />
           </ListItemButton>
         </ListItem>
+        <BasicModal open={favOpen} handleClose={handleCloseFav}/>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon><SubscriptionsIcon/></ListItemIcon>
