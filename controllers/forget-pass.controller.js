@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const { validateEmail } = require('../validation/auth');
 const usersModel = require('../models/register.model');
 const bcrypt = require('bcrypt');
-router.get('/forget-password', async (req, res) => {
+router.post('/forget-password', async (req, res) => {
     const input_email = req.body.email;
     const email = validateEmail(input_email);
     
@@ -41,7 +41,7 @@ router.get('/forget-password', async (req, res) => {
         });
 
         return res.status(200).send({
-            message: "otp sended successfully....",
+            message: "OTP sent to your email id",
             OTP: genRandomOtp,
             _id:user._id
         })
