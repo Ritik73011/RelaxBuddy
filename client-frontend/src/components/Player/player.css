@@ -1,0 +1,12 @@
+#audio{
+    width: 100%;
+    max-width: 500px;
+    color: white;
+    background-color: #e5e7ea;
+}
+#audio::-webkit-media-controls-play-button,
+     audio::-webkit-media-controls-panel {
+     background-color: #e5e7ea;
+     color: white;
+     border-radius: none;
+}
