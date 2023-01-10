@@ -1,7 +1,13 @@
 import { Box, Typography } from "@mui/material"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useContext } from "react";
+import SongContext from "../../Context/SongContext";
 const SingleSong = ({ele})=>{
-    return <Box sx={{display:"flex",gap:"12px",justifyContent:"space-between",marginTop:"16px",cursor:"pointer"}}>
+    const {updateUrl} = useContext(SongContext); 
+    const handleClick = ()=>{
+        updateUrl(ele.url);
+    }
+    return <Box onClick={handleClick} sx={{display:"flex",gap:"12px",justifyContent:"space-between",marginTop:"16px",cursor:"pointer"}}>
         
         <Box sx={{display:"flex",gap:"12px"}}>
         <Box sx={{minWidth:"50px",minHeight:"55px",maxWidth:"70px",maxHeight:"75px",width:"100%",height:"100%"}}>

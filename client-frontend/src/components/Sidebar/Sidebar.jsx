@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,21 +16,22 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import { getCategory, api_url } from "../../private";
 import Navbar from "../TopNavBar/Navbar";
 import Category from "../Category/Category";
 import '../Category/single.css'
 import Songs from "../Song/Songs";
 import { useNavigate } from "react-router";
+import SongContext from "../../Context/SongContext";
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [category, setCategory] = useState([]);
-
+  const {url} = useContext(SongContext);
   const fetchCategory = async () => {
     const responce = await fetch(`${api_url}/${getCategory}`);
     const data = await responce.json();
@@ -84,14 +85,14 @@ function ResponsiveDrawer(props) {
         </ListItem>
 
         <Divider />
-        
+        {/*Catgeory mapping in Sidebar*/}
         {category.length > 0 ? (
           category.map((ele, idx) => {
             return (
               <ListItem key={idx + 1} disablePadding>
                 <ListItemButton onClick={()=>handleClick(ele)}>
                   <ListItemIcon>
-                    <LibraryMusicIcon />
+                    <AudiotrackIcon />
                   </ListItemIcon>
                   <ListItemText primary={ele} />
                 </ListItemButton>
@@ -101,6 +102,8 @@ function ResponsiveDrawer(props) {
         ) : (
           <h3>Loading...</h3>
         )}
+        {/*Catgeory mapping in Sidebar*/}
+
       </List>
 
       <Divider />
@@ -200,14 +203,20 @@ function ResponsiveDrawer(props) {
         }}
       >
         <Toolbar />
-       <Box>
-        <Category/>
-        <Songs/>
-       </Box>
 
-        <Box  position="absolute" bottom="0px" sx={{zIndex:'10',backgroundColor:"grey",width:"100%"}}>
-          <p>Playing Songs</p>
+        {/*Category and Songs Box*/}
+        <Box>
+          <Category/>
+          <Songs/>
         </Box>
+        {/*Category and Songs Box*/}
+
+        {/*Bottom Songs Player*/}
+        <Box  position="absolute" bottom="0px" right='0px' sx={{zIndex:'10',backgroundColor:"grey",width:"100%"}}>
+          <audio src={url} controls autoPlay></audio>
+        </Box>
+        {/*Bottom Songs Player*/}
+
       </Box>
     </Box>
   );

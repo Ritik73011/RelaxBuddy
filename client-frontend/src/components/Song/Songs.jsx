@@ -13,7 +13,7 @@ const Songs = ()=>{
         let responce = await fetch(`${api_url}/${searchedSongs}/${id}`);
         let data = await responce.json();
         setSong(data.songs);
-        console.log(data.songs);
+        //console.log(data.songs);
     }
 
     useEffect(()=>{
