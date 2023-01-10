@@ -25,6 +25,7 @@ import '../Category/single.css'
 import Songs from "../Song/Songs";
 import { useNavigate } from "react-router";
 import SongContext from "../../Context/SongContext";
+import Player from "../Player/Player";
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -46,6 +47,7 @@ function ResponsiveDrawer(props) {
     const navigate = useNavigate();
     const handleClick = (ele)=>{
         navigate(`/songs/${ele}`)
+        setMobileOpen(false);
     }
 
   useEffect(() => {
@@ -212,8 +214,9 @@ function ResponsiveDrawer(props) {
         {/*Category and Songs Box*/}
 
         {/*Bottom Songs Player*/}
-        <Box  position="absolute" bottom="0px" right='0px' sx={{zIndex:'10',backgroundColor:"grey",width:"100%"}}>
-          <audio src={url} controls autoPlay></audio>
+        <Box  position="absolute" bottom="0px" right='0px' sx={{zIndex:'10',backgroundColor:"#e5e7ea",width:"100%"}}>
+        <Divider/>
+          <Player url={url}/>
         </Box>
         {/*Bottom Songs Player*/}
 
