@@ -5,7 +5,7 @@ import SongContext from "../../Context/SongContext";
 const SingleSong = ({ele})=>{
     const {updateUrl} = useContext(SongContext); 
     const handleClick = ()=>{
-        updateUrl(ele.url);
+        updateUrl(ele);
     }
     return <Box onClick={handleClick} sx={{display:"flex",gap:"12px",justifyContent:"space-between",marginTop:"16px",cursor:"pointer"}}>
         

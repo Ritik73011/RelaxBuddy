@@ -27,7 +27,7 @@ const Songs = ()=>{
 
         {
             song.length>0?
-            <Box className='catSl' sx={{overflow:"scroll",overflowX:"hidden",zIndex:"-10",height:"350px"}}>
+            <Box className='catSl' sx={{overflow:"scroll",overflowX:"hidden",zIndex:"-10",height:"325px"}}>
                 {
                     song.map((ele)=>{
                         return <SingleSong key={ele._id} ele={ele}/>
