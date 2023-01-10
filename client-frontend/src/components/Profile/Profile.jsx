@@ -11,6 +11,8 @@ import { forwardRef } from "react";
 import MuiAlert from "@mui/material/Alert";
 import { useEffect } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useContext } from "react";
+import SongContext from "../../Context/SongContext";
 const style = {
   position: "absolute",
   top: "50%",
@@ -130,6 +132,7 @@ function ChildModal() {
 //USER PROFILE INFO
 export default function Profile({ open, handleClose }) {
   const[userData,setUserData] = useState({});
+  const {updatePremiumS}  = useContext(SongContext);
   const fetchUserInfo =() =>{
     fetch(`${api_url}/${getUserInfo}`,{
         method:"GET",
@@ -139,6 +142,7 @@ export default function Profile({ open, handleClose }) {
     }).then((res)=>{
         res.json().then((data)=>{
             setUserData(data);
+            updatePremiumS(data.premium);
         })
     });
   }

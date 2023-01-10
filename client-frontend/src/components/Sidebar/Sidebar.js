@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { forwardRef, useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -26,7 +26,13 @@ import Songs from "../Song/Songs";
 import { useNavigate } from "react-router";
 import SongContext from "../../Context/SongContext";
 import Player from "../Player/Player";
+import MuiAlert from "@mui/material/Alert";
+import { Snackbar } from "@mui/material";
 const drawerWidth = 240;
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function ResponsiveDrawer(props) {
   const { window } = props;
@@ -50,6 +56,36 @@ function ResponsiveDrawer(props) {
         setMobileOpen(false);
     }
 
+    const [open, setOpen] = useState(false);
+    const [text, setText] = useState("");
+    const handleClose = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+  
+      setOpen(false);
+    };
+  
+
+
+    const handlePremium = ()=>{
+      const log = localStorage.getItem('relax-token');
+      if(log){
+        navigate('/songs/premium/premium');
+        setMobileOpen(false);
+      }
+      else{
+        setText("you have to login first");
+        setOpen(true);
+        setTimeout(()=>{
+          setOpen(false);
+        },2000)
+      }
+    }
+    const updateText = (text,val)=>{
+      setText(text);
+      setOpen(val);
+    }
   useEffect(() => {
     fetchCategory();
   }, []);
@@ -69,7 +105,8 @@ function ResponsiveDrawer(props) {
       <List>
 
       <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={()=>{navigate('/trending')
+        setMobileOpen(false)}}>
             <ListItemIcon>
               <WhatshotIcon />
             </ListItemIcon>
@@ -78,7 +115,7 @@ function ResponsiveDrawer(props) {
         </ListItem>
         
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={handlePremium}>
             <ListItemIcon>
               <WorkspacePremiumIcon />
             </ListItemIcon>
@@ -207,9 +244,18 @@ function ResponsiveDrawer(props) {
         <Toolbar />
 
         {/*Category and Songs Box*/}
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert
+              onClose={handleClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              {text}
+            </Alert>
+          </Snackbar>
         <Box>
           <Category/>
-          <Songs/>
+          <Songs updateText={updateText}/>
         </Box>
         {/*Category and Songs Box*/}
 

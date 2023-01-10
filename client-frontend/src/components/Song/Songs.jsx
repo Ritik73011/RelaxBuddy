@@ -2,27 +2,60 @@ import {Box, Skeleton, Typography} from '@mui/material'
 import { useEffect } from 'react';
 import { useState } from 'react'
 import { useParams } from 'react-router';
-import {api_url,getTrendingSongs,searchedSongs} from '../../private';
+import {api_url,getPremiumSongs,getTrendingSongs,getUserInfo,searchedSongs} from '../../private';
 import SingleSong from '../SingleSong/SingleSong';
 import '../Category/single.css'
-const Songs = ()=>{
-    const {id} = useParams();
+import { useContext } from 'react';
+import SongContext from '../../Context/SongContext';
+const Songs = ({updateText})=>{
+    const {id,trending,premium} = useParams();
     const [song,setSong] = useState([]);
+    const [text,setText] = useState("");
+   const {premiumS}  = useContext(SongContext);
 
     const fetchSong =async()=>{
-        let responce = await fetch(`${api_url}/${searchedSongs}/${id}`);
+        let responce;
+        if(trending){
+            responce = await fetch(`${api_url}/${getTrendingSongs}`);
+            setText("Trending Songs");
+        }
+        else{
+            responce=await fetch(`${api_url}/${searchedSongs}/${id}`);
+            setText(`${id} Songs`);
+        }
         let data = await responce.json();
         setSong(data.songs);
         //console.log(data.songs);
     }
 
+    const fetchPremiumSongs =async()=>{
+        let responce = await fetch(`${api_url}/${getPremiumSongs}`,{
+            method:"GET",
+            headers:{
+                token:localStorage.getItem('relax-token')
+            }
+        });
+        let data = await responce.json();
+        setSong(data.songs);
+    }
     useEffect(()=>{
-        fetchSong();
-    },[id])
+        if(premium){
+            if(premiumS){
+                fetchPremiumSongs();
+                setText('Premium Songs');
+            }
+            else{
+                updateText("Your are not premium member",true)
+            }
+        }
+        else{
+            fetchSong();
+        }
+    },[id,premium])
     
     return <Box>
         <Typography variant="h6" sx={{marginTop:"24px",marginBottom:"12px",textAlign:"start"}}>
-          {id+" "+"Songs"}
+          {text}
         </Typography>
 
         {
