@@ -84,7 +84,7 @@ const SingleSong = ({ele})=>{
         <Typography sx={{fontSize:"12px",textAlign:"left"}}>Singer:- {ele.singer}</Typography>
         </Box>
         </Box>
-        {log?flag?<FavoriteIcon  onClick={removeFromFav}/>:<FavoriteBorderIcon onClick={addToFav}/>:""}
+        {log?flag?<FavoriteIcon sx={{color:"#de4646"}} onClick={removeFromFav}/>:<FavoriteBorderIcon  onClick={addToFav}/>:""}
     </Box>
 }
 export default SingleSong;

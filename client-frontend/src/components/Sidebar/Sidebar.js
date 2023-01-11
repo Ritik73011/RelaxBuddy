@@ -29,6 +29,7 @@ import Player from "../Player/Player";
 import MuiAlert from "@mui/material/Alert";
 import { Snackbar } from "@mui/material";
 import BasicModal from "../Favorite/Favorite";
+import './Sidebar.css'
 const drawerWidth = 240;
 
 const Alert = forwardRef(function Alert(props, ref) {
@@ -108,7 +109,7 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <Toolbar>
-        <Typography variant="h5" noWrap component="div">
+        <Typography className="logo" fontSize={'30px'} fontWeight="600" variant="h4" noWrap component="div">
           RelaxBuddy
         </Typography>
       </Toolbar>
@@ -119,7 +120,7 @@ function ResponsiveDrawer(props) {
           <ListItemButton onClick={()=>{navigate('/trending')
         setMobileOpen(false)}}>
             <ListItemIcon>
-              <WhatshotIcon />
+              <WhatshotIcon sx={{color:"#f6a704"}}/>
             </ListItemIcon>
             <ListItemText primary={"Trending Songs"} />
           </ListItemButton>
@@ -128,7 +129,7 @@ function ResponsiveDrawer(props) {
         <ListItem disablePadding>
           <ListItemButton onClick={handlePremium}>
             <ListItemIcon>
-              <WorkspacePremiumIcon />
+              <WorkspacePremiumIcon sx={{color:"#5bc954"}} />
             </ListItemIcon>
             <ListItemText primary={"Premium Songs"} />
           </ListItemButton>
@@ -142,7 +143,7 @@ function ResponsiveDrawer(props) {
               <ListItem key={idx + 1} disablePadding>
                 <ListItemButton onClick={()=>handleClick(ele)}>
                   <ListItemIcon>
-                    <AudiotrackIcon />
+                    <AudiotrackIcon sx={{color:"#e21a52"}} />
                   </ListItemIcon>
                   <ListItemText primary={ele} />
                 </ListItemButton>
@@ -169,14 +170,14 @@ function ResponsiveDrawer(props) {
               setOpen(true);
             }
           }}>
-            <ListItemIcon><FavoriteIcon/></ListItemIcon>
+            <ListItemIcon><FavoriteIcon sx={{color:"#de4646"}}/></ListItemIcon>
             <ListItemText primary={"Favorites"} />
           </ListItemButton>
         </ListItem>
         <BasicModal open={favOpen} handleClose={handleCloseFav}/>
         <ListItem disablePadding>
           <ListItemButton>
-            <ListItemIcon><SubscriptionsIcon/></ListItemIcon>
+            <ListItemIcon><SubscriptionsIcon sx={{color:"#eb5922"}}/></ListItemIcon>
             <ListItemText primary={"Buy Premium"} />
           </ListItemButton>
         </ListItem>
