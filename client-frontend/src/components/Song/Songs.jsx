@@ -41,6 +41,7 @@ const Songs = ({updateText})=>{
         }
         else{
             setSong(data.songs);
+            setText('Premium Songs');
         }
     }
     useEffect(()=>{

@@ -50,7 +50,7 @@ useEffect(()=>{
           </Typography>
         
         <Box sx={{height:"200px",marginTop:"10px",overflow:"scroll",overflowX:"hidden"}}>
-            {song.length>0?<Box>{song.map((ele,idx)=>{
+            {song?<Box>{song.map((ele,idx)=>{
                 return <Typography key={ele._id}>#{idx+1}: {ele.title}</Typography>
             })}</Box>:<Box>No Songs Found</Box>}
         </Box>
