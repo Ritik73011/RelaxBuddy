@@ -36,17 +36,23 @@ const Songs = ({updateText})=>{
             }
         });
         let data = await responce.json();
-        setSong(data.songs);
+        if(data.message){
+            updateText(data.message,true)
+        }
+        else{
+            setSong(data.songs);
+        }
     }
     useEffect(()=>{
         if(premium){
-            if(premiumS){
+            /*if(premiumS){
                 fetchPremiumSongs();
                 setText('Premium Songs');
             }
             else{
                 updateText("Your are not premium member",true)
-            }
+            }*/
+            fetchPremiumSongs();
         }
         else{
             fetchSong();
