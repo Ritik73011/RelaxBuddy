@@ -32,6 +32,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 function ChildModal() {
   const [open, setOpen] = useState(false);
   const [names,setName] = useState("");
+  const [color,setColor] = useState("red");
 
   const handleOpen = () => {
     setOpen(true);
@@ -63,12 +64,16 @@ function ChildModal() {
         }).then((res)=>{
             res.json().then((data)=>{
                 if(data.token){
+                  setColor("green");
                     localStorage.setItem("relax-token",data.token);
                     setOpen2(true);
                     setTimeout(()=>{
                         setOpen2(false);
                         setOpen(false);
                     },2000)
+                }
+                else{
+                  setColor("red");
                 }
                 setError(data.message);
             })
@@ -104,7 +109,7 @@ function ChildModal() {
             variant="standard"
             onChange={(e)=>setName(e.target.value)}
           />
-        <Typography color={"red"}>{err}</Typography>
+        <Typography color={color}>{err}</Typography>
         <Button
             onClick={handleClick}
             variant="contained"

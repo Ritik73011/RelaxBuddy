@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { Fragment, useState } from "react";
 import { Snackbar, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { api_url, login, register,resetPass,updatePass } from "../../private";
+import { api_url, login, register, resetPass, updatePass } from "../../private";
 import { forwardRef } from "react";
 import MuiAlert from "@mui/material/Alert";
 const style = {
@@ -28,6 +28,7 @@ function ChildModal() {
 
   const [err, setError] = useState("");
   const [data, setData] = useState({ name: "", email: "", password: "" });
+  const [color, setColor] = useState("red");
   const handleOpen = () => {
     setOpen(true);
   };
@@ -58,11 +59,14 @@ function ChildModal() {
     }).then((res) => {
       res.json().then((msg) => {
         if (msg.message == "signup successfully...") {
+          setColor("green");
           setOpen2(true);
           setTimeout(() => {
             setOpen(false);
             setOpen2(false);
           }, 2000);
+        } else {
+          setColor("red");
         }
         setError(msg.message);
       });
@@ -118,7 +122,7 @@ function ChildModal() {
             variant="standard"
             onChange={handleChange}
           />
-          <Typography color={"red"}>{err}</Typography>
+          <Typography color={color}>{err}</Typography>
           <Button
             onClick={handleClick}
             variant="contained"
@@ -145,7 +149,7 @@ function ChildModal() {
 export default function NestedModal({ open, handleClose }) {
   const [err, setError] = useState("");
   const [data, setData] = useState({ email: "", password: "" });
-
+  const [color, setColor] = useState("red");
   const [open2, setOpen2] = useState(false);
   const handleClose2 = (event, reason) => {
     if (reason === "clickaway") {
@@ -170,9 +174,12 @@ export default function NestedModal({ open, handleClose }) {
         if (msg.token) {
           localStorage.setItem("relax-token", msg.token);
           setOpen2(true);
+          setColor("green");
           setTimeout(() => {
             handleClose();
           }, 2000);
+        } else {
+          setColor("red");
         }
         setError(msg.message);
       });
@@ -209,7 +216,7 @@ export default function NestedModal({ open, handleClose }) {
               name="password"
               onChange={handleChange}
             />
-            <Typography color={"red"}>{err}</Typography>
+            <Typography color={color}>{err}</Typography>
             <ForgetPassword />
             <Button
               onClick={handleClick}
@@ -245,8 +252,9 @@ function ForgetPassword() {
   const [email, setEmail] = useState("");
   const [btn, setBtn] = useState("SEND OTP");
   const [err, setError] = useState("");
-    const [otp,setOpt] = useState(null);
-    const [userId,setUserId] = useState(null);
+  const [color, setColor] = useState("red");
+  const [otp, setOpt] = useState(null);
+  const [userId, setUserId] = useState(null);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -254,51 +262,55 @@ function ForgetPassword() {
     setOpen(false);
   };
 
-  const sendOTP = ()=>{
+  const sendOTP = () => {
     fetch(`${api_url}/${resetPass}`, {
-        method: "POST",
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify({ email: email }),
+    }).then((res) => {
+      res.json().then((data) => {
+        if (data.OTP) {
+          setColor("green");
+          setOpt(data.OTP);
+          setUserId(data._id);
+          setDisabled(false);
+          setBtn("UPDATE");
+        } else {
+          setColor("red");
+        }
+        setError(data.message);
+      });
+    });
+  };
+  const updatePassw = () => {
+    if (matchOtp != otp) {
+      setError("invalid otp...");
+      setColor("red");
+    } else if (pass.length < 6) {
+      setError("password should be atleast 6 length");
+      setColor("red");
+    } else {
+      fetch(`${api_url}/${updatePass}/${userId}`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "Application/json",
         },
-        body: JSON.stringify({email:email}),
-      }).then((res)=>{
-        res.json().then((data)=>{
-            if(data.OTP){
-                setOpt(data.OTP);
-                setUserId(data._id);
-                setDisabled(false);
-                setBtn("UPDATE")
-            }
-            setError(data.message);
-        })
-      })
-  }
-  const updatePassw = ()=>{
-      if(matchOtp!=otp){
-        setError("invalid otp...")
-      }
-      else if(pass.length<6){
-        setError("password should be atleast 6 length");
-      }
-      else{
-        fetch(`${api_url}/${updatePass}/${userId}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "Application/json",
-          },
-          body: JSON.stringify({
-            password:pass
-          }),
-        }).then((res)=>{
-          res.json().then((data)=>{
-            setError(data.message);
-            setTimeout(()=>{
-              setOpen(false);
-            },2000 )
-          })
-        })
-      }
-  }
+        body: JSON.stringify({
+          password: pass,
+        }),
+      }).then((res) => {
+        res.json().then((data) => {
+          setError(data.message);
+          setColor("green");
+          setTimeout(() => {
+            setOpen(false);
+          }, 2000);
+        });
+      });
+    }
+  };
   return (
     <Fragment>
       <Typography
@@ -346,9 +358,9 @@ function ForgetPassword() {
             disabled={disabled}
             onChange={(e) => setPass(e.target.value)}
           />
-          <Typography color={"green"}>{err}</Typography>
+          <Typography color={color}>{err}</Typography>
           <Button
-          onClick={disabled?sendOTP:updatePassw}
+            onClick={disabled ? sendOTP : updatePassw}
             variant="contained"
             sx={{ display: "block", margin: "auto", marginTop: "16px" }}
           >
