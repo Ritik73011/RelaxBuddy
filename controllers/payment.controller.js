@@ -4,7 +4,6 @@ const stripe = require('stripe')(process.env.KEYPPP);
 const express = require('express');
 const router = express.Router();
 
-const YOUR_DOMAIN = 'http://localhost:3001';
 
 router.post('/create-checkout-session', async (req, res) => {
 
@@ -23,8 +22,8 @@ router.post('/create-checkout-session', async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: `${YOUR_DOMAIN}/trending?success=true`,
-    cancel_url: `${YOUR_DOMAIN}/trending?canceled=true`,
+    success_url: process.env.SUCCESS,
+    cancel_url: process.env.CANCEL,
   
   });
   return res.send({
