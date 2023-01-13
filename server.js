@@ -27,8 +27,9 @@ app.use(searchRoute);
 app.use(forgetPassRoute);
 app.use(paymentRouter);
 
+const port = process.env.PORT || 3000;
 dbConnection().then(()=>{
-    app.listen(3000,()=>{
+    app.listen(port,()=>{
         console.log("database is connected and server is listening on http://localhost:3000");
     })
 }).catch((err)=>{
