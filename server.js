@@ -16,6 +16,13 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 app.use(cors());
+app.use(
+    cors({
+      origin: process.env.CLIENT_URL,
+      methods: "GET,POST,PUT,DELETE",
+      credentials: true,
+    })
+  );
 app.use(signupRoute);
 app.use(loginRoute);
 app.use(categoryRoute);
@@ -27,7 +34,7 @@ app.use(searchRoute);
 app.use(forgetPassRoute);
 app.use(paymentRouter);
 
-const port = process.env.PORT || 3000;
+const port =  3000;
 dbConnection().then(()=>{
     app.listen(port,()=>{
         console.log("database is connected and server is listening on http://localhost:3000");
