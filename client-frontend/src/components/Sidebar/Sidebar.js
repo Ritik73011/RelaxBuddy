@@ -11,7 +11,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -30,6 +29,7 @@ import MuiAlert from "@mui/material/Alert";
 import { Snackbar } from "@mui/material";
 import BasicModal from "../Favorite/Favorite";
 import './Sidebar.css'
+import Payment from "../Payment/Payment";
 const drawerWidth = 240;
 
 const Alert = forwardRef(function Alert(props, ref) {
@@ -40,7 +40,7 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [category, setCategory] = useState([]);
-  const {url} = useContext(SongContext);
+  const {url,premiumS} = useContext(SongContext);
   const fetchCategory = async () => {
     const responce = await fetch(`${api_url}/${getCategory}`);
     const data = await responce.json();
@@ -176,10 +176,7 @@ function ResponsiveDrawer(props) {
         </ListItem>
         <BasicModal open={favOpen} handleClose={handleCloseFav}/>
         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon><SubscriptionsIcon sx={{color:"#eb5922"}}/></ListItemIcon>
-            <ListItemText primary={"Buy Premium"} />
-          </ListItemButton>
+         <Payment/>
         </ListItem>
       </List>
     </div>
