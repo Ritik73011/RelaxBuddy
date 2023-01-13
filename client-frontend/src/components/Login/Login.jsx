@@ -119,6 +119,7 @@ function ChildModal() {
             label="Password"
             defaultValue=""
             name="password"
+            type={"password"}
             variant="standard"
             onChange={handleChange}
           />
@@ -214,6 +215,7 @@ export default function NestedModal({ open, handleClose }) {
               defaultValue=""
               variant="standard"
               name="password"
+              type={"password"}
               onChange={handleChange}
             />
             <Typography color={color}>{err}</Typography>
