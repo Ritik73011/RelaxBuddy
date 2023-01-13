@@ -4,8 +4,7 @@
   "description": "RelaxBuddy is a music streaming web app, where you can listen your favorite songs.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
