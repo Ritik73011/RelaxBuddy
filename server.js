@@ -10,9 +10,11 @@ const trendsRoute = require('./controllers/trend.controllers');
 const favRoute = require('./controllers/favorite.controllers');
 const searchRoute = require('./controllers/search.controller');
 const forgetPassRoute = require('./controllers/forget-pass.controller');
+const paymentRouter = require('./controllers/payment.controller');
 const app = express();
 
 app.use(express.json());
+app.use(express.static('public'));
 app.use(cors());
 app.use(signupRoute);
 app.use(loginRoute);
@@ -23,6 +25,7 @@ app.use(trendsRoute);
 app.use(favRoute);
 app.use(searchRoute);
 app.use(forgetPassRoute);
+app.use(paymentRouter);
 
 dbConnection().then(()=>{
     app.listen(3000,()=>{
